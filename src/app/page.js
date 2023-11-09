@@ -1,19 +1,20 @@
 import Image from "next/image";
+import "./globals.css";
 
 export default function Home() {
   return (
-    <div>
+    <div className="body">
       <div className="banner-container">
         {/*Kartunya */}
         <div className="header-banner-container">
           {/*Foto Proil dan Nama */}
-          <div className="profie-header-banner">
+          <div className="profile-header-banner">
             {/*Foto Proil dan Nama */}
             <Image
               src="/assets/profile.png"
               alt="Picture of the author"
-              width={120}
-              height={120}
+              fill
+              objectFit="contain"
               // blurDataURL="data:..." automatically provided
               // placeholder="blur" // Optional blur-up while loading
             />
@@ -21,8 +22,10 @@ export default function Home() {
           <div className="content-header-banner">
             <div className="bio-nim-header-banner">
               <h1>Fakhri Rasyad</h1>
-              <p>D121211017</p>
-              <p>"Testing"</p>
+              <div className="nim-header-banner">
+                <p>D121211017</p>
+                <p>"Testing"</p>
+              </div>
             </div>
           </div>
         </div>
