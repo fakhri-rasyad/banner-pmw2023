@@ -1,7 +1,29 @@
+"use client";
+
 import Image from "next/image";
 import "./globals.css";
+import { useState } from "react";
 
 export default function Home() {
+  let [nama, setNama] = useState("Fakhri Rasyad");
+  let [inputNamaBaru, setInputNamaBaru] = useState("");
+
+  function nameHandler() {
+    if (inputNamaBaru.length == 0) {
+      alert("Input tidak boleh kosong!");
+      return;
+    }
+    setNama(inputNamaBaru);
+  }
+
+  function inputHandler(value) {
+    setInputNamaBaru(value);
+  }
+
+  function onKeyDownHandler(e) {
+    if (e.code == "Enter") nameHandler();
+  }
+
   return (
     <div className="body">
       <div className="banner-container">
@@ -13,15 +35,13 @@ export default function Home() {
             <Image
               src="/assets/profile.png"
               alt="Picture of the author"
-              fill
               objectFit="contain"
-              // blurDataURL="data:..." automatically provided
-              // placeholder="blur" // Optional blur-up while loading
+              fill
             />
           </div>
           <div className="content-header-banner">
             <div className="bio-nim-header-banner">
-              <h1>Fakhri Rasyad</h1>
+              <h1>{nama}</h1>
               <div className="nim-header-banner">
                 <p>D121211017</p>
                 <p>"Testing"</p>
@@ -31,7 +51,20 @@ export default function Home() {
         </div>
         <div className="cta-banner-wrapper">
           {/*Tombol CTA */}
-          <button>HALLO!</button>
+          <input
+            placeholder="Masukkan namamu!"
+            onKeyDown={(value) => {
+              onKeyDownHandler(value);
+            }}
+            onInput={(value) => inputHandler(value.target.value)}
+          ></input>
+          <button
+            onClick={() => {
+              nameHandler();
+            }}
+          >
+            GANTI NAMA
+          </button>
         </div>
       </div>
     </div>
