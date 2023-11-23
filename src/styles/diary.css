@@ -1,0 +1,30 @@
+.diary-container {
+  width: 442px;
+  height: 596px;
+  top: 214px;
+  left: 499px;
+  gap: 44px;
+}
+
+.diary-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 442px;
+  height: 148px;
+  padding: 24px;
+  margin: 16px 0;
+  border-radius: 24px;
+  gap: 10px;
+  background: #ffffff;
+  box-shadow: 0px 4px 24px 0px #00000005;
+}
+
+.diary-card p {
+  color: #1e1e1e;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+}

@@ -1,0 +1,19 @@
+.navbar-container {
+  width: 152px;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.active h4 {
+  font-weight: bold;
+  color: black;
+}
+
+.normal h4 {
+  font-weight: 400;
+  color: grey;
+}

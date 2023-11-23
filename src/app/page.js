@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import "./globals.css";
-import { useState } from "react";
+import "@styles/home.css";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   let [nama, setNama] = useState("Fakhri Rasyad");
