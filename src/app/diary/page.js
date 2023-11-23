@@ -2,17 +2,27 @@
 import "@/styles/diary.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Diary() {
-  const ENDPOINT = "/User";
+  const ENDPOINT = "https://6555c3a784b36e3a431e45f1.mockapi.io/User";
   const [diary, setDiary] = useState([]);
+  const [judul, setJudul] = useState([]);
+  const [isi, setIsi] = useState([]);
 
   async function getAPI() {
     try {
       const res = await axios.get(ENDPOINT);
-      let respon_data = res.data;
-      console.log(respon_data);
-      setDiary(respon_data);
+      //ambil data
+      const data = res.data;
+
+      //ambil judul
+      const judul = data.map((item) => item.id);
+      setJudul(judul);
+
+      //ambil isi_diary
+      const isi_diary = data.map((item) => item.name);
+      setIsi(isi_diary);
     } catch (e) {
       console.log(`Error is ${e}`);
     }
@@ -23,21 +33,29 @@ export default function Diary() {
   }, []);
 
   return (
-    <div className="diary-container">
-      {diary.length > 0 ? (
-        diary.map((e) => diaryCard(e.name, e.id))
+    <div>
+      {judul.length > 0 ? (
+        <ul>
+          {judul.map((item, idx) => (
+            <Link href={`diary/${item}/${isi[idx]}`}>
+              <li key={idx}>
+                <div className="diary-card">
+                  <h1>{judul[idx]}</h1>
+                  <p className="p-diary">{isi[idx]}</p>
+                </div>
+              </li>
+            </Link>
+          ))}
+        </ul>
       ) : (
-        <h1>Fetching API</h1>
+        "API not loading"
       )}
     </div>
   );
 }
 
-function diaryCard(nama, id) {
-  return (
-    <div className="diary-card" key={id}>
-      <h1>{id}</h1>
-      <p>{nama}</p>
-    </div>
-  );
-}
+// function diaryCard(nama, id) {
+//   return (
+
+//   );
+// }
