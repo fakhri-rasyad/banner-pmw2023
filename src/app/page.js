@@ -45,6 +45,7 @@ export default function Home() {
               <div className="nim-header-banner">
                 <p>D121211017</p>
                 <p>"Testing"</p>
+                <p>TEST_STAGING</p>
               </div>
             </div>
           </div>
