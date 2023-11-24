@@ -9,12 +9,45 @@ export default function Diary() {
   const [diary, setDiary] = useState([]);
   const [judul, setJudul] = useState([]);
   const [isi, setIsi] = useState([]);
+  const [nama, setNama] = useState("");
+  const [inputIsiBaru, setInputIsiBaru] = useState("");
 
-  async function getAPI() {
+  function nameHandler() {
+    if (inputIsiBaru.length == 0) {
+      alert("Input tidak boleh kosong!");
+      return;
+    }
+    setNama(inputIsiBaru);
+    pushToDiary();
+  }
+
+  function inputHandler(value) {
+    setInputIsiBaru(value);
+  }
+
+  function onKeyDownHandler(e) {
+    if (e.code == "Enter") nameHandler();
+  }
+
+  function pushToDiary() {
+    console.log(nama);
+    setDiary([...diary, { name: nama, id: (diary.length + 1).toString() }]);
+    const judul = diary.map((e) => e.id);
+    const isi = diary.map((e) => e.name);
+
+    setJudul(judul);
+    setIsi(isi);
+    console.log(diary);
+    setDiaryOnline();
+  }
+
+  //GET
+  async function getDiary() {
     try {
       const res = await axios.get(ENDPOINT);
       //ambil data
       const data = res.data;
+      setDiary(data);
 
       //ambil judul
       const judul = data.map((item) => item.id);
@@ -28,25 +61,57 @@ export default function Diary() {
     }
   }
 
+  async function setDiaryOnline() {
+    try {
+      const res = await axios.post(ENDPOINT, diary);
+      console.log(res.status);
+    } catch (e) {
+      console.log(`Error is :${e}`);
+    }
+  }
+
   useEffect(() => {
-    diary.length > 0 ? null : getAPI();
+    diary.length > 0 ? null : getDiary();
   }, []);
 
   return (
     <div>
       {judul.length > 0 ? (
-        <ul>
-          {judul.map((item, idx) => (
-            <Link href={`diary/${item}/${isi[idx]}`}>
-              <li key={idx}>
-                <div className="diary-card">
-                  <h1>{judul[idx]}</h1>
-                  <p className="p-diary">{isi[idx]}</p>
-                </div>
-              </li>
-            </Link>
-          ))}
-        </ul>
+        <>
+          <div className="cta-banner-wrapper">
+            {/*Tombol CTA */}
+            <input
+              placeholder="Masukkan namamu!"
+              onKeyDown={(value) => {
+                onKeyDownHandler(value);
+              }}
+              onInput={(value) => inputHandler(value.target.value)}
+            ></input>
+            <button
+              onClick={() => {
+                nameHandler();
+              }}
+            >
+              GANTI NAMA
+            </button>
+          </div>
+          <ul>
+            {judul.map((item, idx) => (
+              <Link
+                className="diary-card"
+                key={idx}
+                href={`diary/${item}/${isi[idx]}`}
+              >
+                <li key={idx}>
+                  <div>
+                    <h1>{judul[idx]}</h1>
+                    <p className="p-diary">{isi[idx]}</p>
+                  </div>
+                </li>
+              </Link>
+            ))}
+          </ul>
+        </>
       ) : (
         "API not loading"
       )}

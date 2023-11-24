@@ -7,6 +7,7 @@
 }
 
 .diary-card {
+  list-style: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,4 +28,67 @@
   line-height: 20px;
   letter-spacing: 0em;
   text-align: left;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: normal;
+}
+
+p {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: normal;
+}
+
+.profile-header-banner {
+  width: 120px;
+  height: 120px;
+  position: relative;
+}
+
+.banner-container {
+  border-radius: 16px;
+  padding: 24px;
+  width: 442px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.header-banner-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.bio-nim-header-banner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content-header-banner {
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cta-banner-wrapper {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.cta-banner-wrapper input {
+  padding: 8px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+button {
+  border-radius: 8px;
+  padding: 8px;
+  background-color: #efca08;
+  width: 100%;
 }
