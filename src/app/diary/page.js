@@ -18,7 +18,7 @@ export default function Diary() {
       return;
     }
     setNama(inputIsiBaru);
-    pushToDiary();
+    setDiaryOnline();
   }
 
   function inputHandler(value) {
@@ -29,24 +29,14 @@ export default function Diary() {
     if (e.code == "Enter") nameHandler();
   }
 
-  function pushToDiary() {
-    console.log(nama);
-    setDiary([...diary, { name: nama, id: (diary.length + 1).toString() }]);
-    const judul = diary.map((e) => e.id);
-    const isi = diary.map((e) => e.name);
-
-    setJudul(judul);
-    setIsi(isi);
-    console.log(diary);
-    setDiaryOnline();
-  }
-
   //GET
   async function getDiary() {
+    alert("Data Telah Di Fetch");
     try {
       const res = await axios.get(ENDPOINT);
       //ambil data
       const data = res.data;
+      console.log(data);
       setDiary(data);
 
       //ambil judul
@@ -63,11 +53,16 @@ export default function Diary() {
 
   async function setDiaryOnline() {
     try {
-      const res = await axios.post(ENDPOINT, diary);
-      console.log(res.status);
+      var newInput = {
+        createdAt: new Date().toISOString(),
+        name: `${inputIsiBaru}`,
+        id: `${diary.length + 1}`,
+      };
+      const res = await axios.post(ENDPOINT, newInput);
     } catch (e) {
       console.log(`Error is :${e}`);
     }
+    getDiary();
   }
 
   useEffect(() => {
@@ -113,14 +108,8 @@ export default function Diary() {
           </ul>
         </>
       ) : (
-        "API not loading"
+        "API loading"
       )}
     </div>
   );
 }
-
-// function diaryCard(nama, id) {
-//   return (
-
-//   );
-// }
